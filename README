@@ -1,0 +1,11 @@
+Requirements:
+ - Python 3.9
+ - ffplay setup (https://www.wikihow.com/Install-FFmpeg-on-Windows) rename extracted folder with ffmpeg(important)
+ - huggingface model access (llama3)
+
+
+# TO run
+create directory - video, audio and files
+upload a sample video in a video directory
+activate env
+run app.py
