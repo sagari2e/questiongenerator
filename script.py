@@ -16,15 +16,12 @@ except ImportError:
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 logging.getLogger().addHandler(logging.StreamHandler(stream=sys.stdout))
 
+
 # HuggingFace login
 login("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")
-
-PERSIST_DIR = "./chroma_db"
-
 def remove_folder(folder_path):
     try:
         if os.path.exists(folder_path):
-            # Remove the directory and all its contents
             shutil.rmtree(folder_path)
             print(f"Folder '{folder_path}' has been removed successfully.")
         else:
@@ -32,7 +29,10 @@ def remove_folder(folder_path):
     except Exception as e:
         print(f"An error occurred while removing the folder: {e}")
 
-def load_data():
+PERSIST_DIR = "./chroma_db"
+# remove_folder(PERSIST_DIR)
+
+def load_fxn():
     global index, chat_engine, memory
     reader = SimpleDirectoryReader(input_dir="./files", recursive=True)
     docs = reader.load_data()
@@ -40,6 +40,7 @@ def load_data():
     llm = HuggingFaceInferenceAPI(
         temperature=0.0, num_output=2048, model_name="meta-llama/Meta-Llama-3-8B-Instruct"
     )
+
     model_name = "BAAI/bge-large-en"
     model_kwargs = {'device': 'cpu'}
     encode_kwargs = {'normalize_embeddings': False}
@@ -49,8 +50,8 @@ def load_data():
         encode_kwargs=encode_kwargs
     )
     service_context = ServiceContext.from_defaults(
-        chunk_size=1000,
-        chunk_overlap=100,
+        chunk_size=500,
+        chunk_overlap=50,
         embed_model=embed_model,
         llm=llm
     )
@@ -63,8 +64,10 @@ def load_data():
     index.storage_context.persist(persist_dir=PERSIST_DIR)
 
     from llama_index.core.memory import ChatMemoryBuffer
-    memory = ChatMemoryBuffer.from_defaults(token_limit=16392)
+    memory = ChatMemoryBuffer.from_defaults(token_limit=1024)
     chat_engine = index.as_chat_engine(chat_mode="condense_question", memory=memory, llm=Settings.llm, verbose=True)
+
+
 
 def ask_question(question):
     global chat_engine
@@ -75,18 +78,12 @@ def save_response_to_file(response, filename):
     with open(filename+".txt", "w") as file:
         file.write(response + "\n")
 
-def ask_main(question, filename):
-    remove_folder(PERSIST_DIR)
-
-    load_data()
-    # while True:
-    #     question = input("Enter your question (or type 'exit' to quit): ")
-    #     if question.lower() == 'exit':
-    #         break
+def ask_main(question):
     response = ask_question(question)
     print("Response:", response)
-    save_response_to_file(response, filename)
-    print("Response saved to chat_response.txt")
+    # save_response_to_file(response, filename)
+    # print("Response saved to chat_response.txt")
+    return response
 
 if __name__ == "__main__":
     main()

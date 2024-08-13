@@ -93,6 +93,7 @@ def get_questions(filename):
     response = ask_main("Generate 10 MCQ question", filename)
     print("Response:", response)
     print("Response saved to chat_response.txt")
+    return response
 
     
 import time
