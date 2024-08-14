@@ -2,3 +2,30 @@ channels:
   - conda-forge
 dependencies:
   - ffmpeg=4.3.1
+  - moviepy
+  - torch
+  - transformers
+  - sense2vec
+  - sentence-transformers
+  - textwrap3
+  - nltk
+  - numpy
+  - flashtext
+  - scikit-learn
+  - similarity
+  - openai-whisper
+  - git+https://github.com/boudinfl/pke.git
+  - strsim
+  - datasets
+  - transformers[sentencepiece]
+  - sentencepiece
+  - pydub
+  - streamlit
+  - llama-index
+  - langchain
+  - transformers
+  - llama_index.llms.huggingface
+  - sentence_transformers
+  - llama-index-embeddings-langchain
+  - langchain-community
+  - fastapi[all]
