@@ -26,3 +26,4 @@ sentence_transformers
 llama-index-embeddings-langchain
 langchain-community
 fastapi[all]
+ffmpeg-python
