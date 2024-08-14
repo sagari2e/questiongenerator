@@ -1,5 +1,4 @@
 moviepy
-ffmpeg
 torch
 transformers
 sense2vec
