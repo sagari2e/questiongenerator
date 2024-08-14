@@ -17,3 +17,12 @@ datasets
 transformers[sentencepiece]
 sentencepiece
 pydub
+streamlit
+llama-index
+langchain
+transformers
+llama_index.llms.huggingface
+sentence_transformers
+llama-index-embeddings-langchain
+langchain-community
+fastapi[all]
